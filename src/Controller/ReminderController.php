@@ -14,14 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/reminder')]
 final class ReminderController extends AbstractController
 {
-    #[Route(name: 'app_reminder_index', methods: ['GET'])]
-    public function index(ReminderRepository $reminderRepository): Response
-    {
-        return $this->render('reminder/index.html.twig', [
-            'reminders' => $reminderRepository->findAll(),
-        ]);
-    }
-
     #[Route('/new', name: 'app_reminder_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -35,7 +27,7 @@ final class ReminderController extends AbstractController
             $entityManager->persist($reminder);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reminder_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reminder/new.html.twig', [
@@ -52,7 +44,7 @@ final class ReminderController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_reminder_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reminder/edit.html.twig', [
@@ -69,7 +61,7 @@ final class ReminderController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reminder_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/toggle', name: 'app_reminder_toggle', methods: ['POST'])]
@@ -78,6 +70,6 @@ final class ReminderController extends AbstractController
         $reminder->setDone(!$reminder->isDone());
         $em->persist($reminder);
         $em->flush();
-        return $this->redirectToRoute('app_reminder_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 }

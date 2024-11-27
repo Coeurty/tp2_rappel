@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes rappels
+{% block title %}Rappels
 {% endblock %}
 
 {% block body %}
@@ -37,4 +37,5 @@
 	</table>
 
 	<a href="{{ path('app_reminder_new') }}">Nouveau rappel</a>
+	<a href="{{ path('app_category_index') }}">Catégories</a>
 {% endblock %}
