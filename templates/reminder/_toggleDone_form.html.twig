@@ -1,0 +1,3 @@
+<form method="post" action="{{ path('app_reminder_toggle', {'id': reminder.id}) }}">
+    <button class="btn">{{ reminder.isDone ? 'Oui' : 'Non' }}</button>
+</form>

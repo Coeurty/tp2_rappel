@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes rappels
+{% endblock %}
+
+{% block body %}
+	<h1>Mes rappels</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Terminé</th>
+				<th>Titre</th>
+				<th>Catégorie</th>
+				<th>Date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reminder in reminders %}
+				<tr>
+					<td>{{ include('reminder/_toggleDone_form.html.twig') }}</td>
+					<td>{{ reminder.title }}</td>
+					<td>{{ reminder.category.name }}</td>
+					<td>{{ reminder.eventDate ? reminder.eventDate|date('d-m-Y H:i') : '' }}</td>
+					<td>
+						{# <a href="{{ path('app_reminder_show', {'id': reminder.id}) }}">show</a> #}
+						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">Aucun rappel</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_reminder_new') }}">Nouveau rappel</a>
+{% endblock %}
