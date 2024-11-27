@@ -1,4 +1,15 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="flex items-center space-x-2 p-2">
+	{{ form_widget(form.name, {
+        'attr': {
+            'class': 'bg-gray-800 text-white p-2 rounded-lg',
+            'placeholder': 'Nom de la catégorie'
+        }
+    }) }}
+	<button type="submit" class="hover:bg-gray-700 bg-gray-800 p-2 cursor-pointer rounded-lg">
+		{{ button_label|default('Créer') }}
+	</button>
+</div>
+
 {{ form_end(form) }}

@@ -1,4 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_start(form, { 'attr': { 'class': 'space-y-4' } }) }}
+
+<div class="flex items-end space-x-2 p-2">
+	<div>
+		{{ form_label(form.title, null, { 'label_attr': { 'class': 'block text-sm font-medium text-gray-300' } }) }}
+		{{ form_widget(form.title, { 'attr': { 'class': 'block w-full mt-1 p-2 bg-gray-800 text-white rounded-lg' } }) }}
+		{{ form_errors(form.title, { 'attr': { 'class': 'text-red-500 text-sm' } }) }}
+	</div>
+
+	<div>
+		{{ form_label(form.eventDate, null, { 'label_attr': { 'class': 'block text-sm font-medium text-gray-300' } }) }}
+		{{ form_widget(form.eventDate, { 'attr': { 'class': 'block w-full mt-1 p-2 bg-gray-800 text-white rounded-lg' } }) }}
+		{{ form_errors(form.eventDate, { 'attr': { 'class': 'text-red-500 text-sm' } }) }}
+	</div>
+
+	<div>
+		{{ form_label(form.category, null, { 'label_attr': { 'class': 'block text-sm font-medium text-gray-300' } }) }}
+		{{ form_widget(form.category, { 'attr': { 'class': 'block w-full mt-1 p-2 bg-gray-800 text-white rounded-lg' } }) }}
+		{{ form_errors(form.category, { 'attr': { 'class': 'text-red-500 text-sm' } }) }}
+	</div>
+
+	<div>
+		<button type="submit" class="hover:bg-gray-700 bg-gray-800 p-2 cursor-pointer rounded-lg">
+			{{ button_label|default('Créer') }}
+		</button>
+	</div>
+</div>
+
 {{ form_end(form) }}

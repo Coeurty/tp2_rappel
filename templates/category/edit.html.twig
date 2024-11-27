@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}Modification de catégorie{% endblock %}
 
 {% block body %}
-    <h1>Edit Category</h1>
+	<header class="flex justify-center content-center static">
+		<a class="hover:bg-gray-700 bg-gray-800 p-2 absolute top-4 left-4 cursor-pointer rounded-lg" href="{{ path('app_category_index') }}">Mes catégories</a>
+		<h1 class="text-6xl p-4">Modification de catégorie</h1>
+	</header>
 
-    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_category_index') }}">back to list</a>
+    {{ include('category/_form.html.twig', {'button_label': 'Valider'}) }}
 
     {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

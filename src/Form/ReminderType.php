@@ -23,16 +23,13 @@ class ReminderType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date'
             ])
-            ->add('isDone', CheckboxType::class, [
-                'mapped' => false,
-                'required' => false,
-            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'label' => 'Catégorie'
+                'label' => 'Catégorie',
+                'placeholder' => 'Aucune catégorie',
+                'required' => false,
             ])
-            // ->addEventListener('')
         ;
     }
 
