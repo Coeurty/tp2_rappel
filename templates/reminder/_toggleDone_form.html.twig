@@ -1,3 +1,6 @@
-<form method="post" action="{{ path('app_reminder_toggle', {'id': reminder.id}) }}">
-	<button class="hover:bg-gray-700 bg-gray-800 cursor-pointer rounded-lg p-2">{{ reminder.isDone ? 'Restaurer' : 'Terminer' }}</button>
+<form method="post" action="{{ path('app_reminder_toggle', {'id': reminder.id}) }}" class="flex justify-center">
+	<input type="checkbox" class="cursor-pointer" {% if reminder.isDone %} checked {% endif %} onchange="this.form.submit()"/>
+	<noscript>
+		<button type="submit">{{ reminder.isDone ? 'Restaurer' : 'Terminer' }}</button>
+	</noscript>
 </form>
