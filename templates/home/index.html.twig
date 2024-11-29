@@ -10,6 +10,21 @@
 		<a class="hover:bg-gray-700 bg-gray-800 p-2 absolute top-4 right-4 cursor-pointer rounded-lg" href="{{ path('app_category_index') }}">Mes catégories</a>
 	</header>
 
+	<section class="m-2">
+		<form method="get" action="{{ path('app_home') }}" class="flex justify-end space-x-2">
+			<label>Catégorie:</label>
+			<select name="category" onchange="this.form.submit()" class="text-black">
+				<option value="" {{ selectedCategory is null ? 'selected' : '' }}>Toutes</option>
+				<option value="null" {{ selectedCategory == 'null' ? 'selected' : '' }}>Aucune</option>
+				{% for category in categories %}
+					<option value="{{ category.name }}" {{ selectedCategory == category.name ? 'selected' : '' }}>
+						{{ category.name }}
+					</option>
+				{% endfor %}
+			</select>
+		</form>
+	</section>
+
 	<!-- Rappels du jour -->
 	<table class="table-auto w-full border-collapse text-left">
 		<thead>

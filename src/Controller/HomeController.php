@@ -2,18 +2,31 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\ReminderRepository;
 use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ReminderRepository $reminderRepository): Response
+    public function index(Request $request, ReminderRepository $reminderRepository, CategoryRepository $categoryRepository): Response
     {
-        $reminders = $reminderRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
+        $selectedCategory = $request->query->get('category');
+
+        if ($selectedCategory === "null") {
+            $reminders = $reminderRepository->findBy(['category' => null]);
+        } elseif ($selectedCategory) {
+            $reminders = $reminderRepository->findByCategoryName($selectedCategory);
+        } else {
+            $reminders = $reminderRepository->findAll();
+        }
+
         $today = new \DateTimeImmutable("today");
         $todayReminders = [];
         $otherReminders = [];
@@ -33,7 +46,9 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'todayReminders' => $todayReminders,
-            'otherReminders' => $otherReminders
+            'otherReminders' => $otherReminders,
+            'categories' => $categories,
+            'selectedCategory' => $selectedCategory
         ]);
     }
 }
