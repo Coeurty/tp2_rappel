@@ -56,17 +56,26 @@
 					">
 					<td class="border border-gray-700 px-4 py-2">{{ include('reminder/_toggleDone_form.html.twig') }}</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.title }}
 						</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.category ? reminder.category.name : '' }}
 						</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.eventDate ? reminder.eventDate|date('H:i') : '' }}
 						</a>
 					</td>
@@ -110,17 +119,26 @@
 					">
 					<td class="border border-gray-700 px-4 py-2">{{ include('reminder/_toggleDone_form.html.twig') }}</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.title }}
 						</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.category ? reminder.category.name : '' }}
 						</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">
+						<a 
+							href="#" 
+							onclick="openModal('{{ path('app_reminder_edit_modal', {'id': reminder.id}) }}')"
+						>
 							{{ reminder.eventDate ? reminder.eventDate|format_datetime(pattern="EEE d MMM HH:mm", locale='fr') : 'Sans date' }}
 						</a>
 					</td>

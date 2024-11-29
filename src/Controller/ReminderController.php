@@ -53,6 +53,23 @@ final class ReminderController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit/modal', name: 'app_reminder_edit_modal', methods: ['GET', 'POST'])]
+    public function editWithModal(Request $request, Reminder $reminder, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ReminderType::class, $reminder);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('reminder/edit_modal.html.twig', [
+            'reminder' => $reminder,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_reminder_delete', methods: ['POST'])]
     public function delete(Request $request, Reminder $reminder, EntityManagerInterface $entityManager): Response
     {
