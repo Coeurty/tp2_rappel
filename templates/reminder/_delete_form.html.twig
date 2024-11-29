@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_reminder_delete', {'id': reminder.id}) }}" onsubmit="return confirm('Confirmez vouloir supprimer ce rappel');">
+<form method="post" action="{{ path('app_reminder_delete', {'id': reminder.id}) }}" onsubmit="return confirm('Confirmez vouloir supprimer ce rappel');" class="flex justify-center">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reminder.id) }}">
 	<button class="hover:bg-red-700 bg-red-800 cursor-pointer rounded-lg p-2 m-2">Supprimer</button>
 </form>
