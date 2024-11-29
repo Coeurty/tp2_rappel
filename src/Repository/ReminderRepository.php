@@ -16,7 +16,17 @@ class ReminderRepository extends ServiceEntityRepository
         parent::__construct($registry, Reminder::class);
     }
 
-//    /**
+    public function findByCategoryName(string $name): array
+    {
+        return $this->createQueryBuilder("r")
+        ->join("r.category", 'c')
+        ->where('c.name = :name')
+        ->setParameter('name', $name)
+        ->getQuery()
+        ->getResult();
+    }
+
+    //    /**
 //     * @return Reminder[] Returns an array of Reminder objects
 //     */
 //    public function findByExampleField($value): array
@@ -31,7 +41,7 @@ class ReminderRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Reminder
+    //    public function findOneBySomeField($value): ?Reminder
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

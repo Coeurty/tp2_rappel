@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau rappel
+{% endblock %}
+
+{% block body %}
+	<header class="flex justify-center content-center relative">
+		<a class="hover:bg-gray-700 bg-gray-800 p-2 absolute top-4 left-4 cursor-pointer rounded-lg" href="{{ path('app_home') }}">Mes rappels</a>
+		<h1 class="text-6xl p-4">Nouveau rappel</h1>
+	</header>
+	{{ include('reminder/_form.html.twig') }}
+{% endblock %}

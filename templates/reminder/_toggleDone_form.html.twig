@@ -1,0 +1,43 @@
+<form method="post" action="{{ path('app_reminder_toggle', {'id': reminder.id}) }}" class="flex justify-center items-center">
+	<label class="relative flex items-center cursor-pointer">
+		<input 
+			type="checkbox" 
+			class="peer sr-only" 
+			{% if reminder.isDone %} checked {% endif %} 
+			onchange="this.form.submit()" 
+		/>
+		<!-- SVG pour l'état non coché -->
+		<svg 
+			xmlns="http://www.w3.org/2000/svg" 
+			class="w-6 h-6 text-gray-400 peer-checked:hidden" 
+			viewBox="0 0 24 24" 
+			fill="none" 
+			stroke="currentColor" 
+			stroke-width="2" 
+			stroke-linecap="round" 
+			stroke-linejoin="round">
+			<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+		</svg>
+
+		<!-- SVG pour l'état coché -->
+		<svg 
+			xmlns="http://www.w3.org/2000/svg" 
+			class="w-6 h-6 text-green-500 hidden peer-checked:block" 
+			viewBox="0 0 24 24" 
+			fill="none" 
+			stroke="currentColor" 
+			stroke-width="2" 
+			stroke-linecap="round" 
+			stroke-linejoin="round">
+			<polyline points="9 11 12 14 22 4"></polyline>
+			<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+		</svg>
+	</label>
+	<noscript>
+		<button type="submit" class="ml-2 text-sm text-blue-500 hover:underline">
+			{{ reminder.isDone ? 'Restaurer' : 'Terminer' }}
+		</button>
+	</noscript>
+</form>
+
+
