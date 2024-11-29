@@ -4,13 +4,62 @@
 {% endblock %}
 
 {% block body %}
-	<header class="flex justify-center content-center static">
+	<header class="flex justify-center content-center static mb-4">
 		<a class="hover:bg-gray-700 bg-gray-800 p-2 absolute top-4 left-4 cursor-pointer rounded-lg" href="{{ path('app_reminder_new') }}">Nouveau rappel</a>
 		<h1 class="text-6xl p-4">Mes rappels</h1>
 		<a class="hover:bg-gray-700 bg-gray-800 p-2 absolute top-4 right-4 cursor-pointer rounded-lg" href="{{ path('app_category_index') }}">Mes catégories</a>
 	</header>
-	<table class="table-auto w-full border-collapse border border-gray-700 text-left">
+
+	<!-- Rappels du jour -->
+	<table class="table-auto w-full border-collapse text-left">
 		<thead>
+			<tr class="bg-gray-600">
+				<th colspan="4" class="px-4 py-2 text-center">
+					Rappels du jour
+				</th>
+			</tr>
+			<tr class="bg-gray-800">
+				<th class="border border-gray-700 px-4 py-2"></th>
+				<th class="border border-gray-700 px-4 py-2">Titre</th>
+				<th class="border border-gray-700 px-4 py-2">Catégorie</th>
+				<th class="border border-gray-700 px-4 py-2">Heure</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reminder in todayReminders %}
+				<tr 
+					class="
+						hover:bg-gray-700 cursor-pointer 
+						{% if reminder.isDone %} hover:bg-green-200 bg-green-100 text-black {% endif %}
+						{% if reminder.eventDate and reminder.eventDate < date() and not reminder.isDone %} hover:bg-red-200 bg-red-100 text-black {% endif %}
+					">
+					<td class="border border-gray-700 px-4 py-2">{{ include('reminder/_toggleDone_form.html.twig') }}</td>
+					<td class="border border-gray-700 px-4 py-2">
+						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.title }}</a>
+					</td>
+					<td class="border border-gray-700 px-4 py-2">
+						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.category ? reminder.category.name : '' }}</a>
+					</td>
+					<td class="border border-gray-700 px-4 py-2">
+						{{ reminder.eventDate ? reminder.eventDate|date('H:i') : '' }}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4" class="border border-gray-700 px-4 py-2 text-center">Aucun rappel aujourd'hui</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+    <!-- Autres rappels -->
+	<table class="table-auto w-full border-collapse text-left mt-6">
+		<thead>
+			<tr class="bg-gray-600">
+				<th colspan="4" class="px-4 py-2 text-center">
+					Autres rappels
+				</th>
+			</tr>
 			<tr class="bg-gray-800">
 				<th class="border border-gray-700 px-4 py-2"></th>
 				<th class="border border-gray-700 px-4 py-2">Titre</th>
@@ -19,22 +68,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for reminder in reminders %}
-				<tr class="hover:bg-gray-700 cursor-pointer">
+			{% for reminder in otherReminders %}
+				<tr 
+					class="
+						hover:bg-gray-700 cursor-pointer 
+						{% if reminder.isDone %} hover:bg-green-200 bg-green-100 text-black {% endif %}
+						{% if reminder.eventDate and reminder.eventDate < date() and not reminder.isDone %} hover:bg-red-200 bg-red-100 text-black {% endif %}
+					">
 					<td class="border border-gray-700 px-4 py-2">{{ include('reminder/_toggleDone_form.html.twig') }}</td>
 					<td class="border border-gray-700 px-4 py-2">
 						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.title }}</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.category? reminder.category.name : '' }}</a>
+						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.category ? reminder.category.name : '' }}</a>
 					</td>
 					<td class="border border-gray-700 px-4 py-2">
-						<a href="{{ path('app_reminder_edit', {'id': reminder.id}) }}">{{ reminder.eventDate ? reminder.eventDate|date('d-m-Y H:i') : '' }}</a>
+						{{ reminder.eventDate ? reminder.eventDate|date('d-m-Y H:i') : 'Sans date' }}
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="5" class="border border-gray-700 px-4 py-2 text-center">Aucun rappel</td>
+					<td colspan="4" class="border border-gray-700 px-4 py-2 text-center">Aucun rappel</td>
 				</tr>
 			{% endfor %}
 		</tbody>
